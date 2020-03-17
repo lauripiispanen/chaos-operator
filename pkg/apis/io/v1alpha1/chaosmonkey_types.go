@@ -9,13 +9,13 @@ import (
 
 // ChaosMonkeySpec defines the desired state of ChaosMonkey
 type ChaosMonkeySpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
-	// Add custom validation using kubebuilder tags: https://book-v1.book.kubebuilder.io/beyond_basics/generating_crd.html
+	// Pod killing interval in seconds
+	Interval int64 `json:"interval"`
 }
 
 // ChaosMonkeyStatus defines the observed state of ChaosMonkey
 type ChaosMonkeyStatus struct {
+	LastRunTime int64 `json:"lastruntime"`
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
 	// Add custom validation using kubebuilder tags: https://book-v1.book.kubebuilder.io/beyond_basics/generating_crd.html

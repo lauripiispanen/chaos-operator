@@ -29,6 +29,9 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 	"sigs.k8s.io/controller-runtime/pkg/manager/signals"
+
+	corev1 "k8s.io/api/core/v1"
+	k8sruntime "k8s.io/apimachinery/pkg/runtime"
 )
 
 // Change below variables to serve metrics on different host or port.
@@ -106,6 +109,15 @@ func main() {
 	if err := apis.AddToScheme(mgr.GetScheme()); err != nil {
 		log.Error(err, "")
 		os.Exit(1)
+	}
+	cache := mgr.GetCache()
+
+	indexFunc := func(obj k8sruntime.Object) []string {
+		return []string{string(obj.(*corev1.Pod).Status.Phase)}
+	}
+
+	if err := cache.IndexField(&corev1.Pod{}, "status.phase", indexFunc); err != nil {
+		panic(err)
 	}
 
 	// Setup all Controllers

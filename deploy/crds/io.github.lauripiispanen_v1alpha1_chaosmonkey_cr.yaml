@@ -4,4 +4,4 @@ metadata:
   name: example-chaosmonkey
 spec:
   # Add fields here
-  size: 3
+  interval: 60
