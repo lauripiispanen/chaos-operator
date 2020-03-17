@@ -1,0 +1,7 @@
+apiVersion: io.github.lauripiispanen/v1alpha1
+kind: ChaosMonkey
+metadata:
+  name: example-chaosmonkey
+spec:
+  # Add fields here
+  size: 3
